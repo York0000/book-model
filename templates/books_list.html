@@ -1,0 +1,84 @@
+{% extends 'basa.html' %}
+{% load cropping %}
+{% block content %}
+    <div class="container mt-2">
+        <table class="table table-hover">
+            <head>
+                <tr>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                    <th>category</th>
+                    <th>page</th>
+                    <th>Created_at</th>
+                    <th>update_at</th>
+                    <th>update</th>
+                </tr>
+            </head>
+            <tbody>
+            {% for book in object_list %}
+                <tr>
+                    <td>{{ book.title|default:'-' }}</td>
+                    <td><img src="{% cropped_thumbnail book "cropping" scale=0.5 %}"></td>
+                    <td>{{ book.description|safe }}</td>
+                    <td>{{ book.author.name|default:'-' }}</td>
+                    <td>{{ book.category.title|default:'-' }}</td>
+                    <td>{{ book.page_count|default:'-' }}</td>
+                    <td>{{ book.created_at|date:'d-m-Y H:i' }}</td>
+                    <td>{{ book.update_at|date:'d-m-Y H:i' }}</td>
+                    <td>
+                       <div class="row">
+                        <div class="col-6">
+          {% extends 'basa.html' %}
+{% load cropping %}
+{% block content %}
+    <div class="container mt-2">
+        <table class="table table-hover">
+            <head>
+                <tr>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                    <th>category</th>
+                    <th>page</th>
+                    <th>Created_at</th>
+                    <th>update_at</th>
+                    <th>update</th>
+                </tr>
+            </head>
+            <tbody>
+            {% for book in object_list %}
+                <tr>
+                    <td>{{ book.title|default:'-' }}</td>
+                    <td><img src="{% cropped_thumbnail book "cropping" scale=0.5 %}"></td>
+                    <td>{{ book.description|safe }}</td>
+                    <td>{{ book.author.name|default:'-' }}</td>
+                    <td>{{ book.category.title|default:'-' }}</td>
+                    <td>{{ book.page_count|default:'-' }}</td>
+                    <td>{{ book.created_at|date:'d-m-Y H:i' }}</td>
+                    <td>{{ book.update_at|date:'d-m-Y H:i' }}</td>
+                    <td>
+                       <div class="row">
+                        <div class="col-6">
+                            <a href="{% url 'books:update' pk=book.pk %}">
+                                <i class="fa fa-pen text-warning"></i>
+                            </a>
+                        </div>
+                        <div class="col-6 px-0">
+                            <form onsubmit="return confirm('You sure?')" method="POST" action="{% url 'books:delete' pk=book.pk %}">
+                                {% csrf_token %}
+                                <button class="submit-icon" type="submit">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
